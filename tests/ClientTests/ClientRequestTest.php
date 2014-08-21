@@ -14,11 +14,20 @@ class ClientRequestTest extends ClientTests\Base
     $params1 = array(42, 6);
     $params2 = array(42, 7);
 
+
+    $this->assertFalse($this->client->multi());
     $this->client->batchOpen();
+    $this->assertEquals(0, $this->client->id());
+    $this->assertTrue($this->client->multi());
+
     $this->client->call($method, $params1);
+    $this->assertEquals(1, $this->client->id());
     $this->client->call($method, $params2);
+    $this->assertEquals(2, $this->client->id());
     $this->client->call($method, $params1);
+    $this->assertEquals(3, $this->client->id());
     $this->client->call($method, $params2);
+    $this->assertEquals(4, $this->client->id());
 
     $json = '[
       {"jsonrpc": "2.0", "result": 6, "id": 2},
