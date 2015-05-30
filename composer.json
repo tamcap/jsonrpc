@@ -1,15 +1,19 @@
 {
 
-  "name": "jsonrpc/jsonrpc",
+  "name": "tamcap/jsonrpc",
   "description": "JSON-RPC 2.0 client/server implementation",
   "keywords": ["json", "rpc", "json-rpc", "api"],
-  "homepage": "http://github.com/johnstevenson/jsonrpc",
+  "homepage": "http://github.com/tamcap/jsonrpc",
   "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "John Stevenson",
       "email": "john-stevenson@blueyonder.co.uk"
+    },
+    {
+      "name": "Marek Laska",
+      "email": "tamcap@tamcap.one.pl"
     }
   ],
 
