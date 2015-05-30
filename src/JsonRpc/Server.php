@@ -9,15 +9,15 @@ use JsonRpc\Base\Response;
 class Server
 {
 
-  private $handler;
-  private $transport = null;
-  private $logger = null;
-  private $assoc = false;
-  private $requests = array();
-  private $responses = array();
-  private $error = null;
-  private $handlerError = null;
-  private $refClass = null;
+  protected $handler;
+  protected $transport = null;
+  protected $logger = null;
+  protected $assoc = false;
+  protected $requests = array();
+  protected $responses = array();
+  protected $error = null;
+  protected $handlerError = null;
+  protected $refClass = null;
 
 
   public function __construct($methodHandler, $transport = null, $display_errors = 0)
@@ -74,7 +74,7 @@ class Server
   }
 
 
-  private function process($json)
+  protected function process($json)
   {
 
     if (!$struct = Rpc::decode($json, $batch))
@@ -95,7 +95,7 @@ class Server
   }
 
 
-  private function getRequests($struct)
+  protected function getRequests($struct)
   {
 
     if (is_array($struct))
@@ -115,7 +115,7 @@ class Server
   }
 
 
-  private function processRequests()
+  protected function processRequests()
   {
 
     foreach ($this->requests as $request)
@@ -149,7 +149,7 @@ class Server
   }
 
 
-  private function processRequest($method, $params)
+  protected function processRequest($method, $params)
   {
 
     $this->error = null;
@@ -179,8 +179,8 @@ class Server
     }
     catch (\Exception $e)
     {
-      $this->logException($e);
       $this->error = Rpc::ERR_INTERNAL;
+      $this->logException($e);
 
       return;
     }
@@ -195,7 +195,7 @@ class Server
   }
 
 
-  private function addResponse($request, $result)
+  protected function addResponse($request, $result)
   {
 
     $ar = array(
@@ -224,7 +224,7 @@ class Server
   }
 
 
-  private function getCallback($method)
+  protected function getCallback($method)
   {
 
     $callback = array($this->handler, $method);
@@ -237,7 +237,7 @@ class Server
   }
 
 
-  private function checkMethod($method, &$params)
+  protected function checkMethod($method, &$params)
   {
 
     try
@@ -322,7 +322,7 @@ class Server
   }
 
 
-  private function getParams($params)
+  protected function getParams($params)
   {
 
     if (is_object($params))
@@ -339,7 +339,7 @@ class Server
   }
 
 
-  private function castObjectsToArrays(&$params)
+  protected function castObjectsToArrays(&$params)
   {
 
     foreach ($params as &$param)
@@ -355,7 +355,7 @@ class Server
   }
 
 
-  private function getHandlerError()
+  protected function getHandlerError()
   {
 
     if ($this->handlerError)
@@ -374,7 +374,7 @@ class Server
 
   }
 
-  private function clearHandlerError()
+  protected function clearHandlerError()
   {
 
     if ($this->handlerError)
@@ -393,14 +393,14 @@ class Server
 
   }
 
-  private function logException(\Exception $e)
+  protected function logException(\Exception $e)
   {
     $message = 'Exception: '. $e->getMessage();
     $message .= ' in ' . $e->getFile() . ' on line ' . $e->getLine();
     $this->logError($message);
   }
 
-  private function logError($message)
+  protected function logError($message)
   {
 
     try
@@ -432,7 +432,7 @@ class Server
 
   }
 
-  private function init()
+  protected function init()
   {
     $this->requests = array();
     $this->responses = array();
