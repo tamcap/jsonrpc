@@ -141,6 +141,18 @@ class Client
   }
 
 
+  public function id()
+  {
+    return $this->id;
+  }
+
+
+  public function multi()
+  {
+    return $this->multi;
+  }
+
+
   private function work($method, $params, $notify = false)
   {
 
